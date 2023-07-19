@@ -15,7 +15,7 @@ COPY Cargo.toml Cargo.lock ./
 RUN set -ex; \
     mkdir src; \
     echo 'fn main() {}' > src/main.rs; \
-    cargo build --locked --release --target x86_64-unknown-linux-musl; \
+    cargo build --locked --release --target aarch64-unknown-linux-musl; \
     rm -rf src;
 
 # Generate TypeScript bindings
@@ -43,7 +43,7 @@ COPY --from=ts-bind /src /src
 COPY --from=rust-deps /src/target /src/target
 COPY --from=web-builder /src/web/dist /src/web/dist
 RUN touch src/main.rs && \
-    cargo build --locked --release --target x86_64-unknown-linux-musl
+    cargo build --locked --release --target aarch64-unknown-linux-musl
 
 # Build ytarchive
 FROM golang:1.20-alpine AS ytarchive-builder
@@ -62,7 +62,7 @@ COPY --from=ytarchive-builder /src/ytarchive/ytarchive /usr/local/bin/ytarchive
 
 USER 1000
 COPY --from=rust-builder --chown=1000:1000 \
-  /src/target/x86_64-unknown-linux-musl/release/hoshinova \
+  /src/target/aarch64-unknown-linux-musl/release/hoshinova \
   /app/hoshinova
 
 CMD ["/app/hoshinova"]
