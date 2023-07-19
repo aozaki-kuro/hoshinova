@@ -1,6 +1,6 @@
 # hoshinova
 
-> Monitor YouTube channels and automatically run
+> Monitor YouTube channels and automatically run 
 > [ytarchive](https://github.com/Kethsar/ytarchive) when the channel goes live.
 
 **⚠️ Unstable Software**: This program is under heavy development. It works, but
